@@ -1,10 +1,16 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
-from .forms import ContatoForm
+from .forms import ContatoForm, ProdutoModelsForm
+from .models import Produto
+
 
 def index(request):
-    return render(request, 'index.html')
+    context = {
+        'produtos': Produto.objects.all()
+    }
+
+    return render(request, 'index.html', context)
 
 
 def contato(request):
@@ -14,17 +20,7 @@ def contato(request):
 
     if str(request.method) == 'POST':
         if form.is_valid():
-            nome = form.cleaned_data.get('nome')
-            email = form.cleaned_data.get('email')
-            assunto = form.cleaned_data.get('assunto')
-            mensagem = form.cleaned_data.get('mensagem')
-
-            print("Mensagem enviada!")
-            print(f'Nome: {nome}')
-            print(f'Email: {email}')
-            print(f'Assunto: {assunto}')
-            print(f'Mensagem: {mensagem}')
-
+            form.send_mail()
             messages.success(request, 'Mensagem enviada com sucesso!')
             form = ContatoForm()
         else:
@@ -38,4 +34,21 @@ def contato(request):
 
 
 def produto(request):
-    return render(request, 'produto.html')
+
+    if str(request.user) != 'AnonymousUser':
+        if str(request.method) == 'POST':
+            form = ProdutoModelsForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Produto cadastrado com sucesso!')
+                form = ProdutoModelsForm()
+            else:
+                messages.error(request, 'Erro ao cadastrar produto.')
+        else:
+            form = ProdutoModelsForm()
+        context = {
+            'form': form
+        }
+    else:
+        return redirect('index')
+    return render(request, 'produto.html', context=context)
