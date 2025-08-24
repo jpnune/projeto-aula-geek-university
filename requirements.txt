@@ -1,10 +1,13 @@
 asgiref==3.9.1
 beautifulsoup4==4.13.4
+click==8.2.1
+colorama==0.4.6
 dj-database-url==3.0.1
 Django==5.2.5
 django-bootstrap4==25.2
 django-stdimage==6.0.2
 gunicorn==23.0.0
+h11==0.16.0
 mysql==0.0.3
 mysqlclient==2.2.7
 packaging==25.0
@@ -15,4 +18,5 @@ soupsieve==2.7
 sqlparse==0.5.3
 typing_extensions==4.14.1
 tzdata==2025.2
+uvicorn==0.35.0
 whitenoise==6.9.0

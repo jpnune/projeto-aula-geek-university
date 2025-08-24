@@ -16,8 +16,9 @@ import dj_database_url
 
 # usando postgresql com heroku
 DATABASE ={
-    'default': dj_database_url.parse(
-        'postgres//admin:dpg-d2kp21f5r7bs73ct0te0-a.oregon-postgres.render.com:5432/django2_74qj'
+    'default': dj_database_url.config(
+        default = 'postgresql://admin:hXW5sUgTYAPHKdpfnHmfPRb7v4yfwK0H@postgresql://admin:hXW5sUgTYAPHKdpfnHmfPRb7v4yfwK0H@dpg-d2kp21f5r7bs73ct0te0-a.oregon-postgres.render.com/django2_74qj:5432/django2_74qj',
+        conn_max_age=600
     )
 }
 
