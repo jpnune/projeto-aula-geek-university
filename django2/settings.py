@@ -98,16 +98,16 @@ DATABASES = {
 
 """
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": 'django2_74qj',
-        "USER": 'admin',
-        "PASSWORD": 'hXW5sUgTYAPHKdpfnHmfPRb7v4yfwK0H',
-        "HOST": 'dpg-d2kp21f5r7bs73ct0te0-a.oregon-postgres.render.com',
-        "PORT": '5432',
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": 'django2_74qj',
+#         "USER": 'admin',
+#         "PASSWORD": 'hXW5sUgTYAPHKdpfnHmfPRb7v4yfwK0H',
+#         "HOST": 'dpg-d2kp21f5r7bs73ct0te0-a.oregon-postgres.render.com',
+#         "PORT": '5432',
+#     }
+# }
 
 
 # Password validation
