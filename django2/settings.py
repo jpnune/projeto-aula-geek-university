@@ -14,9 +14,11 @@ import os
 from pathlib import Path
 import dj_database_url
 
-#usando postgresql com heroku
+# usando postgresql com heroku
 DATABASE ={
-    'default': dj_database_url.config()
+    'default': dj_database_url.parse(
+        'postgres//admin:dpg-d2kp21f5r7bs73ct0te0-a.oregon-postgres.render.com:5432/django2_74qj'
+    )
 }
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -98,7 +100,7 @@ DATABASES = {
 
 """
 
-# DATABASES = {
+# DATABASES_URL = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql_psycopg2",
 #         "NAME": 'django2_74qj',
@@ -148,7 +150,6 @@ STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
