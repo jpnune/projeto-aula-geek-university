@@ -13,14 +13,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 import dj_database_url
+from decouple import config
 
-# usando postgresql com heroku
-DATABASE ={
-    'default': dj_database_url.config(
-        default = 'postgresql://admin:hXW5sUgTYAPHKdpfnHmfPRb7v4yfwK0H@dpg-d2kp21f5r7bs73ct0te0-a.oregon-postgres.render.com:5432/django2_74qj',
-        conn_max_age=600
-    )
-}
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-@u@nd9e&r%+824vmq4hsignv8jlkwx9t=^lw++(fho#_b0a_d7"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -87,19 +82,34 @@ WSGI_APPLICATION = "django2.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-"""
+
+# DATABASE ={
+#     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# }
+
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": 'django2',
-        "USER": 'root',
-        "PASSWORD": 'JP*nunes87',
-        "HOST": 'localhost',
-        "PORT": '3306',
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
-"""
+DATABASES['default'] = dj_database_url.config()
+
+# """
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": 'django2',
+#         "USER": 'root',
+#         "PASSWORD": 'JP*nunes87',
+#         "HOST": 'localhost',
+#         "PORT": '3306',
+#     }
+# }
+
+# """
 
 # DATABASES_URL = {
 #     "default": {
@@ -148,7 +158,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
@@ -158,10 +169,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Configurações de email
 # EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-"""
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "no-reply@seu_dominio.com"
-EMAIL_HOST_PASSWORD = "sua_senha"
-"""
+# """
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = "no-reply@seu_dominio.com"
+# EMAIL_HOST_PASSWORD = "sua_senha"
+# """
