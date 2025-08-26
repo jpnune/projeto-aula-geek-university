@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
-import dj_database_url
 from decouple import config
+import dj_database_url
 
 
 
@@ -82,22 +82,6 @@ WSGI_APPLICATION = "django2.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-
-# DATABASE ={
-#     'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-# }
-
-
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
-
-DATABASES['default'] = dj_database_url.config()
-
-# """
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.mysql",
@@ -109,7 +93,22 @@ DATABASES['default'] = dj_database_url.config()
 #     }
 # }
 
-# """
+DATABASES = {
+    'default': dj_database_url.parse(config('DATABASE_URL'))
+}
+
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+
+
+
+
 
 # DATABASES_URL = {
 #     "default": {
@@ -158,8 +157,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = "static/"
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
