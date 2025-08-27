@@ -14,8 +14,9 @@ import os
 from pathlib import Path
 from decouple import config
 import dj_database_url
+from dotenv import load_dotenv
 
-
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -78,6 +79,31 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "django2.wsgi.application"
 
+DB_LIVE = os.getenv('DB_LIVE', 'False')
+
+if DB_LIVE in ['False', False]:
+    print("Using SQLite database")
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+else:
+    print("Using PostgreSQL database")
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.getenv('DB_NAME'),
+            "USER": os.getenv('DB_USER'),
+            "PASSWORD": os.getenv('DB_PASSWORD'),
+            "HOST": os.getenv('DB_HOST'),
+            "PORT": os.getenv('DB_PORT'),
+        }
+    }
+
+
+
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -93,16 +119,8 @@ WSGI_APPLICATION = "django2.wsgi.application"
 #     }
 # }
 
-DATABASES = {
-    'default': dj_database_url.parse(config('DATABASE_URL'))
-}
-
-
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
+#     'default': dj_database_url.parse(config('DATABASE_URL'))
 # }
 
 
@@ -110,16 +128,6 @@ DATABASES = {
 
 
 
-# DATABASES_URL = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "NAME": 'django2_74qj',
-#         "USER": 'admin',
-#         "PASSWORD": 'hXW5sUgTYAPHKdpfnHmfPRb7v4yfwK0H',
-#         "HOST": 'dpg-d2kp21f5r7bs73ct0te0-a.oregon-postgres.render.com',
-#         "PORT": '5432',
-#     }
-# }
 
 
 # Password validation
@@ -161,6 +169,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
