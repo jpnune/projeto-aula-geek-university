@@ -32,7 +32,7 @@ SECRET_KEY = "django-insecure-@u@nd9e&r%+824vmq4hsignv8jlkwx9t=^lw++(fho#_b0a_d7
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['http://localhost', 'projeto-aula-geek-university-production.up.railway.app', 'https://*.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['http://localhost', 'https://projeto-aula-geek-university-production.up.railway.app', 'https://*.onrender.com']
 
 
 # Application definition
